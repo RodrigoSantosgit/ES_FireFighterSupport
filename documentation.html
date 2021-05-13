@@ -141,7 +141,11 @@
                   <div class="col-lg-8 details order-2 order-lg-1">
                     <h3>Arquitetura</h3>
                     <p class="fst-italic">Arquitetura do sistema desenvolvido.</p>
-                    <p></p>
+                    <p><img src="assets/img/arquitetura.png" alt="" class="img-fluid"></p>
+                    <p> <b>Sensor Data:</b> Os dados recolhidos pelos sensores são enviados com recurso a um script escrito em Python que faz o papel de um producer de Kafka, enviando os dados para um tópico de Kafka.</p></p> 
+                    <p> <b>Back-Office Application:</b> Aplicação Spring boot que é responsável pela interligação dos restantes componentes, pussui um receiver de Kafka, que está a receber dados no tópico para o qual o script Python está a enviar. Estes dados serão posteriormente enviados tanto para a aplicação Front-end, como para a base de dados para o seu armazenamento.</p></p> 
+                    <p> <b>Front-end Application:</b> Aplicação responsável por apresentar os dados recebidos e processados, para uso por parte dos clientes, tem uma secção para dados em tempo real onde serão também apresentados os alarmes e eventos relativos ás situações de perigo, e outra onde é possivel verificar os dados de missões passadas, estes dados serão recebidos de dois modos, dados em tempo real são recebidos por um cliente Kafka e os dados do histórico são recebidos através da Base de Dados InfluxDB.</p></p> 
+                    <p> <b>Database:</b> Base de dados InfluxDB, onde são armazenados os dados recebidos em tempo real, para uso e estudo futuro. Estará ligada á aplicação Front-end para disponibilizar quando pedidos os dados de missões passadas.</p></p> 
                   </div>
                 </div>
               </div>

@@ -117,9 +117,9 @@
                   <div class="col-lg-8 details order-2 order-lg-1">
                     <h3>Cenários</h3>
                     <p class="fst-italic">No desenvolvimento do serviço, tivemos em consideração os seguintes cenários de utilização:</p>
-                    <p> <b>1.</b> Monitorização de bombeiros, durante o decorrer das suas missões. <p> &emsp; Neste cenário inclui-se a apresentação de informação útil tal como o batimento cardíaco e a posição de cada bombeiro, bem como os níveis de CO e NO2, temperatura, e a variação da altitude desde o ínicio da missão, para a monitorização dos bombeiros em real-time.</p></p> 
+                    <p> <b>1.</b> Monitorização de bombeiros, durante o decorrer das suas missões. <p> &emsp; Neste cenário inclui-se a apresentação de informação útil tal como o batimento cardíaco e a posição de cada bombeiro, bem como os níveis de humidade do ar, temperatura, e a bateria dos sensores desde o ínicio da missão, para a monitorização dos bombeiros em real-time.</p></p> 
                     <p> <b>2.</b> Armazenamento de informação relativa a missões passadas. <p> &emsp; Neste cenário inclui-se a recolha e armazenamento numa base de dados informação proveniente dos sensors dos bombeiros para estudo e aprendizagem futura de situações de possível risco.</p></p>
-                    <p> <b>3.</b> Notificação de situações de emergência, e/ou dificuldade técnica. <p> &emsp; Neste cenário está previsto o envio de um alarme de notificação caso alguma situação anormal ou de perigo seja detetada, como por exemplo, batimentos cardíacos anormais, valores de NO2 e CO de risco, variações bruscas de altitude, assim como baterias fracas.</p></p>
+                    <p> <b>3.</b> Notificação de situações de emergência, e/ou dificuldade técnica. <p> &emsp; Neste cenário está previsto o envio de um alarme de notificação caso alguma situação anormal ou de perigo seja detetada, como por exemplo, batimentos cardíacos anormais, valores de humidade do ar, assim como baterias fracas.</p></p>
                   </div>
                 </div>
               </div>
@@ -142,10 +142,11 @@
                     <h3>Arquitetura</h3>
                     <p class="fst-italic">Arquitetura do sistema desenvolvido.</p>
                     <p><img src="assets/img/arquitetura.png" alt="" class="img-fluid"></p>
-                    <p> <b>Sensor Data:</b> Os dados recolhidos pelos sensores são enviados com recurso a um script escrito em Python que faz o papel de um producer de Kafka, enviando os dados para um tópico de Kafka.</p></p> 
-                    <p> <b>Back-Office Application:</b> Aplicação Spring boot que é responsável pela interligação dos restantes componentes, pussui um receiver de Kafka, que está a receber dados no tópico para o qual o script Python está a enviar. Estes dados serão posteriormente enviados tanto para a aplicação Front-end, como para a base de dados para o seu armazenamento.</p></p> 
+                    <p> <b>Sensor Data:</b> Os dados recolhidos pelos sensores são enviados com recurso a um script escrito em Python que faz o papel de um producer de Kafka, enviando os dados para um tópico de Kafka (ESP33_SensorData).</p></p> 
+                    <p> <b>Back-Office Application:</b> Aplicação Spring boot que é responsável pela interligação dos restantes componentes, pussui um receiver e um producer de Kafka, que está a receber dados no tópico para o qual o script Python está a enviar. Estes dados são processados e quando detetada uma situação de perigo são enviados pelo producer para o tópico de Kafka ESP33_Alerts.</p></p> 
                     <p> <b>Front-end Application:</b> Aplicação responsável por apresentar os dados recebidos e processados, para uso por parte dos clientes, tem uma secção para dados em tempo real onde serão também apresentados os alarmes e eventos relativos ás situações de perigo, e outra onde é possivel verificar os dados de missões passadas, estes dados serão recebidos de dois modos, dados em tempo real são recebidos por um cliente Kafka e os dados do histórico são recebidos através da Base de Dados InfluxDB.</p></p> 
-                    <p> <b>Database:</b> Base de dados InfluxDB, onde são armazenados os dados recebidos em tempo real, para uso e estudo futuro. Estará ligada á aplicação Front-end para disponibilizar quando pedidos os dados de missões passadas.</p></p> 
+                    <p> <b>Database:</b> Base de dados InfluxDB, onde são armazenados os dados recebidos em tempo real, para uso e estudo futuro. Estará ligada á aplicação Front-end para disponibilizar quando pedidos os dados de missões passadas e as posições atuais realtime de cada bombeiro.</p></p>
+                    <p> <b>Realtime Dashboard:</b> Dashboard Grafana, na qual são apresentados os dados detalhados em tempo real acerca de cada bombeiro. Recebe os útlimos dados inseridos na base de dados Influx, atualizando os a cada 5 segundos.</p></p> 
                   </div>
                 </div>
               </div>

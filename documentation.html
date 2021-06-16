@@ -94,7 +94,7 @@
                 <a id="t5" class="nav-link" onclick="changeTab(5)" data-toggle="tab-5" href="#tab-5">Runtime</a>
               </li>
               <li class="nav-item">
-                <a id="t6" class="nav-link" onclick="changeTab(6)" data-toggle="tab-6" href="#tab-6">Deployment</a>
+                <a id="t6" class="nav-link" onclick="changeTab(6)" data-toggle="tab-6" href="#tab-6">Deployment CI/CD</a>
               </li>
             </ul>
           </div>
@@ -155,16 +155,96 @@
                   <div class="col-lg-8 details order-2 order-lg-1">
                     <h3>Runtime</h3>
                     <p class="fst-italic"></p>
-                    <p></p>
+                    <p>Nesta secção é descrita a implementação mais em detalhe, bem como a divisão dos componentes pelo sistema.</p>
+                    <p><b>Detalhes de implementação:</b></p>
+                    
+                    <table class="table" style="table-layout:fixed">
+                    	<tr>
+                    		<th>Stage</th>
+                    		<th>Purpose</th>
+                    		<th>Used Tools</th>
+                    	</tr>
+                    	<tr>
+                    		<td>Tool Install</td>
+                    		<td>Instânciação e inicialização das variáveis e ferramentas necessárias á execução do Pipeline.</td>
+                    		<td>SSH Command</td>
+                    	</tr>
+                    	<tr>
+                    		<td>Clone Repository</td>
+                    		<td>Copia todo o código fonte necessário para a VM de implementação, presente no repositório de desenvolvimento.</td>
+                    		<td>Git</td>
+                    	</tr>
+                    	<tr>
+                    		<td>Build</td>
+                    		<td>Nesta fase do Pipeline é feita a compilação de cada uma dos componentes clonados anteriormente e são gerados os fat jars para as apps rest-service e esp33_frontEndApp.</td>
+                    		<td>Maven, JDK 11</td>
+                    	</tr>
+                    	<tr>
+                    		<td>Testing</td>
+                    		<td>Corre os testes de Maven para as aplicações Spring Boot (rest-service, esp33_frontEndApp).</td>
+                    		<td>Maven, JDK 11</td>
+                    	</tr>
+                    	<tr>
+                    		<td>Build and Deploy images to registry</td>
+                    		<td>Nesta etapa são construídas as imagens Docker, a partir dos ficheiros Dockerfile de cada componente e é feito o push dessas imagens para o registry.</td>
+                    		<td>Docker</td>
+                    	</tr>
+                    	<tr>
+                    		<td>Remote SSH</td>
+                    		<td>Efetuado o <i>docker pull</i> da imagem do registry e de seguida <i>docker run</i> na VM de deployment (Playground).</td>
+                    		<td>SSH Command</td>
+                    	</tr>
+                    </table>
                   </div>
                 </div>
               </div>
               <div class="tab-pane" id="tab-6">
                 <div class="row">
                   <div class="col-lg-8 details order-2 order-lg-1">
-                    <h3>Deployment</h3>
+                    <h3>Deployment CI/CD</h3>
                     <p class="fst-italic"></p>
-                    <p></p>
+                    <br>
+                    <p><img src="assets/img/Pipeline.png" alt="" class="img-fluid"></p>
+                    <br>
+                    <p><b>Detalhes de cada estágio:</b></p>
+                    
+                    <table class="table" style="table-layout:fixed">
+                    	<tr>
+                    		<th>Stage</th>
+                    		<th>Purpose</th>
+                    		<th>Used Tools</th>
+                    	</tr>
+                    	<tr>
+                    		<td>Tool Install</td>
+                    		<td>Instânciação e inicialização das variáveis e ferramentas necessárias á execução do Pipeline.</td>
+                    		<td>SSH Command</td>
+                    	</tr>
+                    	<tr>
+                    		<td>Clone Repository</td>
+                    		<td>Copia todo o código fonte necessário para a VM de implementação, presente no repositório de desenvolvimento.</td>
+                    		<td>Git</td>
+                    	</tr>
+                    	<tr>
+                    		<td>Build</td>
+                    		<td>Nesta fase do Pipeline é feita a compilação de cada uma dos componentes clonados anteriormente e são gerados os fat jars para as apps rest-service e esp33_frontEndApp.</td>
+                    		<td>Maven, JDK 11</td>
+                    	</tr>
+                    	<tr>
+                    		<td>Testing</td>
+                    		<td>Corre os testes de Maven para as aplicações Spring Boot (rest-service, esp33_frontEndApp).</td>
+                    		<td>Maven, JDK 11</td>
+                    	</tr>
+                    	<tr>
+                    		<td>Build and Deploy images to registry</td>
+                    		<td>Nesta etapa são construídas as imagens Docker, a partir dos ficheiros Dockerfile de cada componente e é feito o push dessas imagens para o registry.</td>
+                    		<td>Docker</td>
+                    	</tr>
+                    	<tr>
+                    		<td>Remote SSH</td>
+                    		<td>Efetuado o <i>docker pull</i> da imagem do registry e de seguida <i>docker run</i> na VM de deployment (Playground).</td>
+                    		<td>SSH Command</td>
+                    	</tr>
+                    </table>
                   </div>
                 </div>
               </div>

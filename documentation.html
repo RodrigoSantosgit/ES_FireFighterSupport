@@ -156,43 +156,33 @@
                     <h3>Runtime</h3>
                     <p class="fst-italic"></p>
                     <p>Nesta secção é descrita a implementação mais em detalhe, bem como a divisão dos componentes pelo sistema.</p>
+                    <br>
                     <p><b>Detalhes de implementação:</b></p>
                     
                     <table class="table" style="table-layout:fixed">
                     	<tr>
-                    		<th>Stage</th>
+                    		<th>Component</th>
+                    		<th>Technology</th>
+                    		<th>Runtime</th>
                     		<th>Purpose</th>
-                    		<th>Used Tools</th>
                     	</tr>
                     	<tr>
-                    		<td>Tool Install</td>
-                    		<td>Instânciação e inicialização das variáveis e ferramentas necessárias á execução do Pipeline.</td>
-                    		<td>SSH Command</td>
+                    		<td>rest-service</td>
+                    		<td>Spring Boot, Java</td>
+                    		<td>Encontra se a correr num container de Docker chamado esp33_rest-service, na VM Playground no porto 33002. 192.168.160.87:33002</td>
+                    		<td>App responsável pela análise dos dados provenientes dos sensores que se encontra no tópico ESP33_SensorData de Kafka. Envia posteriormente os dados para a Base de Dados InfluxDB do sistema. Também pussui um gerador de alertas, baseado na análise feita dos dados recebidos, estes alertas são enviados para o tópico ESP33_Alerts de Kafka.</td>
                     	</tr>
                     	<tr>
-                    		<td>Clone Repository</td>
-                    		<td>Copia todo o código fonte necessário para a VM de implementação, presente no repositório de desenvolvimento.</td>
-                    		<td>Git</td>
+                    		<td>esp33_frontEndApp</td>
+                    		<td>Spring Boot, Java</td>
+                    		<td>Encontra se a correr num container de Docker chamado esp33_frontendapp, na VM Playground no porto 33003. 192.168.160.87:33003</td>
+                    		<td>App responsável pela apresentação dos dados existentes na base de dados no path "/historic", bem como apresentação em tempo real das posições de cada Bombeiro num mapa no path "/realtime". Neste último também são mostrados alertas quando estes surgem no tópico ESP33_Alerts.</td>
                     	</tr>
                     	<tr>
-                    		<td>Build</td>
-                    		<td>Nesta fase do Pipeline é feita a compilação de cada uma dos componentes clonados anteriormente e são gerados os fat jars para as apps rest-service e esp33_frontEndApp.</td>
-                    		<td>Maven, JDK 11</td>
-                    	</tr>
-                    	<tr>
-                    		<td>Testing</td>
-                    		<td>Corre os testes de Maven para as aplicações Spring Boot (rest-service, esp33_frontEndApp).</td>
-                    		<td>Maven, JDK 11</td>
-                    	</tr>
-                    	<tr>
-                    		<td>Build and Deploy images to registry</td>
-                    		<td>Nesta etapa são construídas as imagens Docker, a partir dos ficheiros Dockerfile de cada componente e é feito o push dessas imagens para o registry.</td>
-                    		<td>Docker</td>
-                    	</tr>
-                    	<tr>
-                    		<td>Remote SSH</td>
-                    		<td>Efetuado o <i>docker pull</i> da imagem do registry e de seguida <i>docker run</i> na VM de deployment (Playground).</td>
-                    		<td>SSH Command</td>
+                    		<td>Grafana Dashboard</td>
+                    		<td>Grafana</td>
+                    		<td>Encontra se a correr num container de Docker chamado esp33_grafana, na VM Playground no porto 33001. 192.168.160.87:33001</td>
+                    		<td>Dashboard de controlo das estatísticas importantes (batimento cardíaco, humidade, temperatura, etc..) acerca de cada bombeiro, em gráficos. Dados estes recebidos em tempo real, vindos da base de dados InfluxDB.</td>
                     	</tr>
                     </table>
                   </div>

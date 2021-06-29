@@ -96,6 +96,9 @@
               <li class="nav-item">
                 <a id="t6" class="nav-link" onclick="changeTab(6)" data-toggle="tab-6" href="#tab-6">Deployment CI/CD</a>
               </li>
+              <li class="nav-item">
+                <a id="t7" class="nav-link" onclick="changeTab(7)" data-toggle="tab-7" href="#tab-7">Monitoring</a>
+              </li>
             </ul>
           </div>
           <div class="col-lg-9 mt-4 mt-lg-0">
@@ -256,6 +259,20 @@
                     		<li>InfluxDB a correr no porto 8086.</li>
                     	</ul>
                     </p>
+                  </div>
+                </div>
+              </div>
+              <div class="tab-pane" id="tab-7">
+                <div class="row">
+                  <div class="col-lg-8 details order-2 order-lg-1">
+                    <h3>Monitoring</h3>
+                    <p class="fst-italic">Para um bom acompanhamento e update continuo do serviço é necessário monitorizar o sistema. Detalhes da nossa implementação de monitorização.</p></br>
+                    <p><b>ELK ( Elastic Search, Logstash, Kibana )</b></p>
+                    <p> &emsp; Para o nosso sistema, foi decidod utilizar um processo de monitorização baseado em ELK. No qual, os <i>Logs</i> gerados pelo nosso sistema são armazenados e processados. A partir da informação contida nos <i>Logs</i> é possível ter uma visão generalizada do funcionamento da aplicação. É possível verificar dados recebidos/enviados entre os diferentes componentes do sistema, bem como acompanhar o processo de operação do sistem para determinadas ações do utilizador.</p>
+                    <p> &emsp; Esta informação fica disponível em 192.168.160.18:5601/app/management/kibana/ e é possível verificar as métricas obtidas.</p>
+                    <p>_____________________________________________________________________________________________</p>
+                    <p>No entanto, apesar das diversas tentativas por parte do grupo não foi possível implementar o sistema de monitorização ELK com sucesso.</p>
+                    </br>
                   </div>
                 </div>
               </div>

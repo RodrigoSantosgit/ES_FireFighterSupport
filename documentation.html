@@ -156,6 +156,7 @@
                     <h3>Runtime</h3>
                     <p class="fst-italic"></p>
                     <p>Nesta secção é descrita a implementação mais em detalhe, bem como a divisão dos componentes pelo sistema.</p>
+                    <p>Na nossa implementação optamos por adotar uma arquitetura baseada em <b>microserivços</b> onde cada serviço tem uma função. Deste modo temos um controlo superior sobre os diversos componentes da aplicação e torna-se assim mais fácil fazer a sua manutenção e monitorização.</p>
                     <br>
                     <p><b>Detalhes de implementação:</b></p>
                     
@@ -167,21 +168,33 @@
                     		<th>Purpose</th>
                     	</tr>
                     	<tr>
+                    		<td>Kafka</td>
+                    		<td>Apache Kafka</td>
+                    		<td>Apache Kafka Message Broker, presente na VM Runtime ( 192.168.160.18 ) instalado pelo professor. Foram criados dois tópicos ESP33_SensorData e ESP33_Alerts.</td>
+                    		<td>Componente responsável pelo armazenamento de dados da aplicação, vindos dos Sensores.</td>
+                    	</tr>
+                    	<tr>
+                    		<td>InfluxDB</td>
+                    		<td>InfluxDB</td>
+                    		<td>Base de dados esp33_firefighters, presente na InfluxDB instalado pelo professor na VM Runtime. ( 192.168.160.18 )</td>
+                    		<td>Componente responsável pelo armazenamento de dados da aplicação, vindos dos Sensores.</td>
+                    	</tr>
+                    	<tr>
                     		<td>rest-service</td>
                     		<td>Spring Boot, Java</td>
-                    		<td>Encontra se a correr num container de Docker chamado esp33_rest-service, na VM Playground no porto 33002. 192.168.160.87:33002</td>
+                    		<td>Encontra se a correr num container de Docker chamado esp33_rest-service, na VM Playground no porto 33002. <small>192.168.160.87:33002</small></td>
                     		<td>App responsável pela análise dos dados provenientes dos sensores que se encontra no tópico ESP33_SensorData de Kafka. Envia posteriormente os dados para a Base de Dados InfluxDB do sistema. Também pussui um gerador de alertas, baseado na análise feita dos dados recebidos, estes alertas são enviados para o tópico ESP33_Alerts de Kafka.</td>
                     	</tr>
                     	<tr>
                     		<td>esp33_frontEndApp</td>
                     		<td>Spring Boot, Java</td>
-                    		<td>Encontra se a correr num container de Docker chamado esp33_frontendapp, na VM Playground no porto 33003. 192.168.160.87:33003</td>
+                    		<td>Encontra se a correr num container de Docker chamado esp33_frontendapp, na VM Playground no porto 33003. <small>192.168.160.87:33003</small></td>
                     		<td>App responsável pela apresentação dos dados existentes na base de dados no path "/historic", bem como apresentação em tempo real das posições de cada Bombeiro num mapa no path "/realtime". Neste último também são mostrados alertas quando estes surgem no tópico ESP33_Alerts.</td>
                     	</tr>
                     	<tr>
                     		<td>Grafana Dashboard</td>
                     		<td>Grafana</td>
-                    		<td>Encontra se a correr num container de Docker chamado esp33_grafana, na VM Playground no porto 33001. 192.168.160.87:33001</td>
+                    		<td>Encontra se a correr num container de Docker chamado esp33_grafana, na VM Playground no porto 33001. <small>192.168.160.87:33001</small></td>
                     		<td>Dashboard de controlo das estatísticas importantes (batimento cardíaco, humidade, temperatura, etc..) acerca de cada bombeiro, em gráficos. Dados estes recebidos em tempo real, vindos da base de dados InfluxDB.</td>
                     	</tr>
                     </table>
